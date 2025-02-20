@@ -18,6 +18,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\FontProviders\GoogleFontProvider;
+use Filament\Support\Colors\Color;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -39,7 +41,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\FilamentInfoWidget::class,
             ])
             ->unsavedChangesAlerts()
-            ->brandLogo(fn () => view('filament.app.logo'))
+            ->brandLogo(fn() => view('filament.app.logo'))
             ->brandLogoHeight('1.25rem')
             ->navigationGroups([
                 'Shop',
@@ -63,6 +65,16 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['en', 'es', 'nl']),
-            );
+            )
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->font('Plus Jakarta Sans', provider: GoogleFontProvider::class)
+            ->Colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Neutral,
+                'info' => Color::Blue,
+                'primary' => Color::Indigo,
+                'success' => Color::Lime,
+                'warning' => Color::Orange,
+            ]);
     }
 }
